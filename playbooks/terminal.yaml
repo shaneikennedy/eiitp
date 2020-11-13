@@ -4,36 +4,17 @@
   gather_facts: no
 
   vars:
-    topsecret_repo: "git@gitlab.com:mauriciovieira/top-secret.git"
-    topsecret_path: "~/Repositories/gitlab.com/mauriciovieira/top-secret"
-    vscode_settings: "templates/Library/ApplicationSupport/Code/User/settings.json"
-    vscode_settings_path: "~/Library/Application Support/Code/User/"
-    screenshots_path: "~/Pictures/Screenshots"
-
     packages:
-      - ag
-      - autojump
-      - bats
-      - certbot
       - cmake
-      - composer
-      - ffmpeg
+      - firefox
       - ghc
-      - gifsicle
       - git
-      - git-flow-avh
-      - gnu-indent
-      - heroku
       - htop
-      - hub
-      - imagemagick
       - jq
-      - mosh
-      - parity
-      - passpie
-      - pv
+      - pyenv
+      - pyenv-virtualenv
+      - rg
       - shellcheck
-      - terminal-notifier
       - wget
       - yarn
       - zlib
@@ -42,40 +23,8 @@
 
     cask_packages:
       - java
-      - ngrok
-      - vagrant
-      - virtualbox
-
-    unwanted_packages:
-      - asdf
-      - ccat
-      - docker-compose
-      - docker-machine
-      - firefox
-      - htop-osx
-      - pyenv-virtualenvwrapper
-      - pyenv-virtualenv
-      - pyenv
 
   tasks:
-    - name: Ensure {{ topsecret_path }} exists
-      file: path={{ topsecret_path }} state=directory
-
-    - name: Clone / update top-secret repository
-      git: repo={{ topsecret_repo }} dest="{{ topsecret_path }}" version=master
-      tags:
-        - top_secret
-
-    - name: Install top-secret stuff
-      shell: chdir="{{ topsecret_path }}" make install
-      tags:
-        - top_secret
-
-    - name: Uninstall Homebrew packages
-      homebrew: name={{ unwanted_packages }} state=absent
-      tags:
-        - homebrew
-
     - name: Install Homebrew packages
       homebrew: name={{ packages }} state=latest
       tags:
@@ -87,12 +36,3 @@
       tags:
         - homebrew
         - homebrew_cask
-
-    - name: Ensure {{ screenshots_path }} exists
-      file: path={{ screenshots_path }} state=directory
-
-    - name: Set screenshots location
-      shell: defaults write com.apple.screencapture location {{ screenshots_path }}
-
-    - name: Install vscode settings
-      copy: src="{{ vscode_settings }}" dest="{{ vscode_settings_path }}" mode=0640

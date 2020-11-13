@@ -4,34 +4,13 @@
   gather_facts: no
 
   vars:
-    packages:
-      - macvim
-
     cask_packages:
-      - adobe-acrobat-reader
       - brave-browser
-      - caffeine
       - discord
       - docker
-      - electrum
-      - google-chrome
-      - graphiql
-      - inkscape
       - iterm2
-      - obs
-      - postman
-      - rescuetime
-      - shiftit
-      - skitch
-      - skype
-      - telegram
-      - visual-studio-code
 
   tasks:
-    - name: Install Homebrew packages
-      homebrew: name={{ packages }} state=latest
-
     - name: Install Homebrew Cask packages
       homebrew_cask: name={{ item }} state=latest
       with_items: "{{ cask_packages }}"
-
