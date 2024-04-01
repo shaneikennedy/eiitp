@@ -8,6 +8,8 @@
       - git
       - htop
       - jq
+      - fzf
+      - lsd
       - pyenv
       - pyenv-virtualenv
       - rg
@@ -17,6 +19,9 @@
       - zlib
       - zsh
       - zsh-completions
+
+    cask_packages:
+      - emacs
 
   tasks:
     - name: Install Homebrew packages
