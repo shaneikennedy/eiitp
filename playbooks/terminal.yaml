@@ -5,9 +5,6 @@
 
   vars:
     packages:
-      - cmake
-      - firefox
-      - ghc
       - git
       - htop
       - jq
@@ -20,9 +17,6 @@
       - zlib
       - zsh
       - zsh-completions
-
-    cask_packages:
-      - java
 
   tasks:
     - name: Install Homebrew packages
